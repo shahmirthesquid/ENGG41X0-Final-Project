@@ -1,0 +1,114 @@
+[
+    {
+        "type": "separator"
+    },
+    {
+        "type": "header",
+        "text": "Power Usage"
+    },
+    {
+        "name": "dummyFloat",
+        "type": "float",
+        "direction": "display",
+        "display": "graph",
+        "xaxis": 20
+    },
+    {
+        "type": "separator"
+    },
+    {
+        "type": "header",
+        "text": "Outlet 1"
+    },
+    {
+        "name": "Outlet1_Power",
+        "type": "bool",
+        "direction": "display"
+    },
+    {
+        "name": "Outlet1_Timer",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "type": "separator"
+    },
+    {
+        "name": "projectName",
+        "type": "char",
+        "length": 64,
+        "direction": "display"
+    },
+    {
+        "type": "separator"
+    },
+    {
+        "type": "header",
+        "text": "The Best Project Ever!!! :))"
+    },
+    {
+        "type": "label",
+        "text": "peepee poopoo head"
+    },
+    {
+        "type": "separator"
+    },
+    {
+        "name": "gabe_is_poopy_head",
+        "type": "char",
+        "length": 32,
+        "direction": "control"
+    },
+    {
+        "name": "duncan_is_poopy_head",
+        "type": "char",
+        "length": 32,
+        "direction": "control"
+    },
+    {
+        "name": "harrod_is_poopy_head",
+        "type": "char",
+        "length": 32,
+        "direction": "control"
+    },
+    {
+        "name": "shahmir_is_keeewlest",
+        "type": "char",
+        "length": 32,
+        "direction": "control"
+    },
+    {
+        "name": "stringInput",
+        "type": "char",
+        "length": 32,
+        "direction": "control"
+    },
+    {
+        "name": "dummyInt",
+        "type": "uint16_t",
+        "direction": "display"
+    },
+    {
+        "name": "dummyBool",
+        "type": "bool",
+        "direction": "display"
+    },
+    
+    {
+        "name": "inputInt",
+        "type": "uint16_t",
+        "direction": "control"
+    },
+    {
+        "name": "inputBool",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "inputFloat",
+        "type": "float",
+        "min": 1,
+        "max": 10,
+        "direction": "control"
+    }
+]
