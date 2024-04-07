@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Switch, Route, NavLink} from "react-router-dom";
-import { FiBox as HeaderIcon } from "react-icons/fi";
+{/* import { FiBox as HeaderIcon } from "react-icons/fi"; */}
+import { FaFishFins as HeaderIcon} from "react-icons/fa6";
+
+
 
 import {GlobalStyle, Menu, Header, Page, Hamburger} from "./comp/UiComponents";
 import { WifiPage } from "./comp/WifiPage";

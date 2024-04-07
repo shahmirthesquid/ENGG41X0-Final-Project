@@ -47,6 +47,11 @@ export function ControlItem(props) {
                     binDataView.setUint8(1, parseInt(target.slice(3,5), 16));
                     binDataView.setUint8(2, parseInt(target.slice(5,7), 16));                       
                     break;
+                case "time":
+                    //parse time code
+                    binDataView.setUint8(0, parseInt(target.slice(0,2),10)  );
+                    binDataView.setUint8(1, parseInt(target.slice(3,5),10 )  );                    
+                    break;
                 case "bool":
                     if (target === true) { binDataView.setUint8(0, 1); } else { binDataView.setUint8(0, 0); }
                     break;
@@ -122,7 +127,11 @@ export function ControlItem(props) {
         return <input onClick={(e) => { setTarget(e.target.checked); save(); }} type={props.type} id={props.name} name={props.name} value={data} {...props.conditionalAttributes} />;
     } else if (props.type == "color") {
         return <input onChange={(e) => { setTarget(e.target.value); save(); }} type={props.type} id={props.name} name={props.name} value={data} {...props.conditionalAttributes} />;
-    } else {
+    } 
+    else if (props.type == "time") {
+        return <input onChange={(e) => { setTarget(e.target.value); save(); }} type={props.type} id={props.name} name={props.name} value={data} {...props.conditionalAttributes} />;
+    }
+    else {
         return <><input onChange={(e) => { setTarget(e.target.value); }} type={props.type} id={props.name} name={props.name} value={data} {...props.conditionalAttributes} />
             <Button onClick={(e) => {            
                 e.preventDefault();

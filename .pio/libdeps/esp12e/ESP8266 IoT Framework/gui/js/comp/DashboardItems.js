@@ -34,6 +34,14 @@ const Display = styled.p`
         border:1px solid #c4e052;
         background-color:#e6f9b8;
     }
+    span.Off {
+        border:1px solid #ff3333;
+        background-color:#ffb3b3;
+    }
+    span.On {
+        border:1px solid #c4e052;
+        background-color:#e6f9b8;
+    }
 
     & > div {
         width:437px;
@@ -73,6 +81,9 @@ const DefaultTypeAttributes = {
     },
     color: {
         type: "color",
+    },
+    time: {
+        type: "time",
     },
     bool: {
         type: "checkbox",
@@ -130,11 +141,30 @@ export function DashboardItems(props) {
         }        
     });
 
+    
     let confItems;
     if (props.items.length == 0) {
         confItems = <p>{loc.dashEmpty}</p>;
     } else {
+
+        let outletCount = data.outletCount; /*create local variable with the number of outlets to be shown*/
+
         for (let i = 0; i < props.items.length; i++) {
+            
+            if (typeof props.items[i].name === "string" && props.items[i].name.length >= 2){
+                let lastTwoChars = props.items[i].name.slice(-2)
+                /*
+                console.log("checking item", props.items[i].name);
+                console.log("last two chars are", lastTwoChars);
+                console.log("is integer?", Number.isInteger(Number(lastTwoChars)));
+                console.log("> outletCount?", Number(lastTwoChars)>outletCount);
+                */
+                if(Number.isInteger(Number(lastTwoChars)) && Number(lastTwoChars)>outletCount){
+                    /*console.log("IS AN INTEGER and > outletCount!!!")*/
+                    props.items[i].hidden = true;
+                }
+            }
+
             if (props.items[i].hidden) {
                 continue;
             }
@@ -151,6 +181,11 @@ export function DashboardItems(props) {
 
             if (props.items[i].type == "label") {
                 confItems = <>{confItems}<Layout><p>{props.items[i].text}</p></Layout></>;
+                continue;
+            }
+
+            if (props.items[i].type == "nolabel") {
+                confItems = <>{confItems}<Layout><p></p></Layout></>;
                 continue;
             }
 
@@ -209,6 +244,115 @@ export function DashboardItems(props) {
                     if (typeof props.items[i].optionLabels !== "undefined") {
                         conditionalAttributes.optionLabels = props.items[i].optionLabels;
                     }
+                    if(props.items[i].name.slice(-7,-2) == "Mode_"){ /* if we are on a selection, check which of the 16 relays it is selecting for */
+                        let relayNumber = props.items[i].name.slice(-2); /* creates a string with the first character as '0' then appends the number and takes the last two digits. This makes 1 = 01 and 16 still = 16. This variable allows the slice to only be performed once */
+                        /*console.log("relayNumber",relayNumber);*/
+                        if(props.items[i].name.slice(-7) == "Mode_"+ relayNumber  ){ /* is it mode01 through mode16+?  */
+                            /*alert(props.items[i].name.slice(-5)+ " : " + "Mode"+ j.toString());*/
+                            /*alert("option:"+props.items[i].option+", "+ "options:" +props.items[i].option);*/
+                            /*alert(props.items[i]);*/
+                            /*console.log("data items:",data);*/
+                            /*console.log("props:",props);*/
+                            /*console.log("items", props.items);*/
+                            /*
+                            const tmpName = props.items[i].name;
+                            console.log("propName: ",props.items[i].name);
+                            console.log("tmpName: ", tmpName);
+                            console.log("dynamicAccess: ",data[tmpName]);
+                            console.log("directAccess: ",data[props.items[i].name]);
+                            */
+                            
+                            if(data[props.items[i].name] == "None" || data[props.items[i].name] == "undefined"){ /* if it is a mode is it set to None? */
+                                for (let k = 0; k < props.items.length; k++){ /* if it is set to none go through all items to find the ones that need to be hidden*/
+                                    /*console.log("Looping through # of items", props.items.length);*/
+                                    if (typeof props.items[k].name === "string" && props.items[k].name.length >= 9) {
+                                
+                                        
+                                        let nameSlice = props.items[k].name.slice(-9); /* takes the last 9 characters of the string. 7 characters are for the keyword, and 2 characters are for the relay number. This is set to a variable so that the slice only needs to performed once */
+                                        /*
+                                        console.log("looking at: ", props.items[k].name);
+                                        console.log("comparing slice: ",nameSlice +" against " + "_daily_" + relayNumber );*/
+                                        
+                                        if(nameSlice == "_daily_" + relayNumber ) { /* found related item, check if it is matching number*/
+                                            props.items[k].hidden = true;
+                                        }
+                                        else if(nameSlice == "_intrv_" + relayNumber ) { /* found related item, check if it is matching number*/
+                                            props.items[k].hidden = true;
+                                        }
+                                        else if(nameSlice == "_weekl_" + relayNumber ) { /* found related item, check if it is matching number*/
+                                            props.items[k].hidden = true;
+                                        }
+                                    }
+                                }
+                            }
+
+                            else if(data[props.items[i].name] == "Daily"){ /* if it is a mode is it set to Daily? */
+                                for (let k = 0; k < props.items.length; k++){ /* if it is set to none go through all items to find the ones that need to be hidden*/
+                                    if (typeof props.items[k].name === "string" && props.items[k].name.length >= 9) {
+                                
+                                        /*console.log("looking at: ", props.items[k].name);*/
+                                        /*console.log("comparing slice: ",props.items[k].name.slice(-6) +" against " + "_daily_" + j.toString() );*/
+
+                                        let nameSlice = props.items[k].name.slice(-9); /* takes the last 9 characters of the string. 7 characters are for the keyword, and 2 characters are for the relay number. This is set to a variable so that the slice only needs to performed once */
+                                        if(nameSlice == "_daily_" + relayNumber ) { /* found related item, check if it is matching number*/
+                                            props.items[k].hidden = false;
+                                        }
+                                        else if(nameSlice == "_intrv_" + relayNumber ) { /* found related item, check if it is matching number*/
+                                            props.items[k].hidden = true;
+                                        }
+                                        else if(nameSlice == "_weekl_" + relayNumber ) { /* found related item, check if it is matching number*/
+                                            props.items[k].hidden = true;
+                                        }
+                                    }
+                                } 
+                            }
+
+                            else if(data[props.items[i].name] == "Time Interval"){ /* if it is a mode is it set to Daily? */
+                                for (let k = 0; k < props.items.length; k++){ /* if it is set to none go through all items to find the ones that need to be hidden*/
+                                    if (typeof props.items[k].name === "string" && props.items[k].name.length >= 9) {
+                                
+                                        /*console.log("looking at: ", props.items[k].name);*/
+                                        /*console.log("comparing slice: ",props.items[k].name.slice(-6) +" against " + "_daily_" + j.toString() );*/
+
+                                        let nameSlice = props.items[k].name.slice(-9); /* takes the last 9 characters of the string. 7 characters are for the keyword, and 2 characters are for the relay number. This is set to a variable so that the slice only needs to performed once */
+                                        if(nameSlice == "_daily_" + relayNumber ) { /* found related item, check if it is matching number*/
+                                            props.items[k].hidden = true;
+                                        }
+                                        else if(nameSlice == "_intrv_" + relayNumber ) { /* found related item, check if it is matching number*/
+                                            props.items[k].hidden = false;
+                                        }
+                                        else if(nameSlice == "_weekl_" + relayNumber ) { /* found related item, check if it is matching number*/
+                                            props.items[k].hidden = true;
+                                        }
+                                    }
+                                }
+                            }
+
+                            else if(data[props.items[i].name] == "Weekly"){ /* if it is a mode is it set to Daily? */
+                                for (let k = 0; k < props.items.length; k++){ /* if it is set to none go through all items to find the ones that need to be hidden*/
+                                    if (typeof props.items[k].name === "string" && props.items[k].name.length >= 9) {
+                                
+                                        /*console.log("looking at: ", props.items[k].name);*/
+                                        /*console.log("comparing slice: ",props.items[k].name.slice(-6) +" against " + "_daily_" + j.toString() );*/
+
+                                        let nameSlice = props.items[k].name.slice(-9); /* takes the last 9 characters of the string. 7 characters are for the keyword, and 2 characters are for the relay number. This is set to a variable so that the slice only needs to performed once */
+                                        if(nameSlice == "_daily_" + relayNumber ) { /* found related item, check if it is matching number*/
+                                            props.items[k].hidden = true;
+                                        }
+                                        else if(nameSlice == "_intrv_" + relayNumber ) { /* found related item, check if it is matching number*/
+                                            props.items[k].hidden = true;
+                                        }
+                                        else if(nameSlice == "_weekl_" + relayNumber ) { /* found related item, check if it is matching number*/
+                                            props.items[k].hidden = false;
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            
+                        }
+
+                    }
                     break;
             }
 
@@ -227,6 +371,44 @@ export function DashboardItems(props) {
                     </>;
                     
                     break;
+                case "display_OnOff":                    
+                confItems = <>{confItems}
+                    <Display>
+                        <label htmlFor={props.items[i].name}><b>{props.items[i].label || props.items[i].name}</b>: {rangeInfo}</label>
+                        <DisplayItem 
+                            item={props.items[i]} 
+                            data={props.data}
+                            value={value? "On" : "Off"} />
+                    </Display>
+                </>;
+                
+                break;
+
+                case "display_noLabel_OnOff":                    
+                confItems = <>{confItems}
+                    <Display>
+                        {/*<label htmlFor={props.items[i].name}><b>{props.items[i].label || props.items[i].name}</b>: {rangeInfo}</label>*/}
+                        <DisplayItem 
+                            item={props.items[i]} 
+                            data={props.data}
+                            value={value? "On" : "Off"} />
+                    </Display>
+                </>;
+                
+                break;
+
+                case "display_noLabel":                    
+                confItems = <>{confItems}
+                    <Display>
+                        {/* <label htmlFor={props.items[i].name}><b>{props.items[i].label || props.items[i].name}</b>: {rangeInfo}</label> */}
+                        <DisplayItem 
+                            item={props.items[i]} 
+                            data={props.data}
+                            value={value} />
+                    </Display>
+                </>;
+                
+                break;
 
                 case "control":                     
                     confItems = <>{confItems}

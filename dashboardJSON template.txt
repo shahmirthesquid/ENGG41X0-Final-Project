@@ -1,0 +1,171 @@
+
+    {
+        "name": "relayState_01",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_01",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_01",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_01",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_01",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_01",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_01",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_01",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_01",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_01",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+
+
+
+    {
+        "name": "relayState_02",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+
+    {
+        "name": "relay_02",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_02",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_02",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_02",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_02",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_02",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_02",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_02",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_02",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },

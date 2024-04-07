@@ -26,6 +26,8 @@ def preBuildDashFun():
                 h.write("\tchar " + item['name'] + "[" + str(item['length']) + "];\n")
             elif item['type'] == 'color':
                 h.write("\tuint8_t " + item['name'] +"[3];\n")
+            elif item['type'] == 'time':
+                h.write("\tuint8_t " + item['name'] +"[2];\n")
             elif item['type'] == 'bool':
                 h.write("\t" + item['type'] + " " + item['name'] +";\n")
             else:

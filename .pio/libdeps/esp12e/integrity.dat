@@ -1,2 +1,5 @@
-ESP8266 IoT Framework
 bblanchon/ArduinoJson@6.21.5
+ESP8266 IoT Framework
+adafruit/Adafruit ADS1X15@^2.5.0
+adafruit/Adafruit BusIO@^1.15.0
+jchristensen/Timezone@^1.2.4

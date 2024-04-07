@@ -19,9 +19,18 @@ export function ConfigPage(props) {
     useEffect(() => {
         document.title = loc.titleConf;
     }, []);
-   
     const confItems = <DashboardItems items={Config} data={props.configData} />;    
+    /*
+    console.log("items", Config);
+    console.log("data",props.configData);
 
+
+    if(props.configData.blueiris_bool == true){
+        
+    }
+    */
+
+    /*console.log("config",Config);*/
     let button;
     if (Object.keys(props.configData).length > 0) {
         button = <Button onClick={() =>

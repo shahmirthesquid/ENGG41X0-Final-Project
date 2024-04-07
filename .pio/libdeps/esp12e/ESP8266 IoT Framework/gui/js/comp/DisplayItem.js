@@ -47,7 +47,11 @@ export function DisplayItem(props) {
 
     } else if (props.item.type == "color") {
         return <input type={props.item.type} id={props.item.name} disabled="disabled" title="This field is read-only" name={props.item,name} style={{cursor: "default"}} value={props.value} />;
-    } else {
+    } 
+    else if (props.item.type == "time") {
+        return <input type={props.item.type} id={props.item.name} disabled="disabled" title="This field is read-only" name={props.item,name} style={{cursor: "default"}} value={props.value} />;
+    } 
+    else {
         return <span id={props.item.name} name={props.item.name} className={props.item.type == "bool" ? props.value.toString() : ""}>{props.value.toString()}</span>;
 
     }

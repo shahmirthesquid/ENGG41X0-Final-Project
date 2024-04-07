@@ -1,5 +1,31 @@
 [
     {
+        "label": "Outlet Count",
+        "name": "outletCount",
+        "type": "uint16_t",
+        "min": 1,
+        "max": 16,
+        "direction":"display",
+        "hidden": true
+    },
+    {
+        "name": "blueiris_bool",
+        "label": "Enable BlueIris Webcam?",
+        "type": "bool",
+        "direction": "display_OnOff",
+        "hidden":true
+    },
+    {
+        "type": "separator"
+    },
+    {
+        "label": "Time",
+        "name": "timeDisplay",
+        "type": "char",
+        "length":32,
+        "direction":"display"
+    },
+    {
         "type": "separator"
     },
     {
@@ -7,9 +33,17 @@
         "text": "Power Usage"
     },
     {
-        "name": "dummyFloat",
+        "label": "Watts",
+        "name": "watts",
         "type": "float",
-        "direction": "display",
+        "digits": 2,
+        "direction": "display"
+    },
+    {
+        "label": "Watts",
+        "name": "wattsGraph",
+        "type": "float",
+        "direction": "display_noLabel",
         "display": "graph",
         "xaxis": 20
     },
@@ -21,87 +55,1750 @@
         "text": "Outlet 1"
     },
     {
-        "name": "Outlet1_Power",
-        "type": "bool",
-        "direction": "display"
+        "name": "relay_name_01",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
     },
     {
-        "name": "Outlet1_Timer",
+        "name": "relayState_01",
+        "label": "State",
         "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_01",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_01",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_01",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_01",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_01",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_01",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_01",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_01",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_01",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
         "direction": "control"
     },
     {
         "type": "separator"
     },
     {
+        "name": "relay_header_02",
+        "type": "header",
+        "text": "Outlet 2"
+    },
+    {
+        "name": "relay_name_02",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_02",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_02",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_02",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_02",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_02",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_02",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_02",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_02",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_02",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_02",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_02",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_03",
+        "type": "header",
+        "text": "Outlet 3"
+    },
+    {
+        "name": "relay_name_03",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_03",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_03",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_03",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_03",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_03",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_03",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_03",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_03",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_03",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_03",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_03",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_04",
+        "type": "header",
+        "text": "Outlet 4"
+    },
+    {
+        "name": "relay_name_04",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_04",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_04",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_04",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_04",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_04",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_04",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_04",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_04",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_04",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_04",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_04",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_05",
+        "type": "header",
+        "text": "Outlet 5"
+    },
+    {
+        "name": "relay_name_05",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_05",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_05",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_05",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_05",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_05",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_05",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_05",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_05",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_05",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_05",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_05",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_06",
+        "type": "header",
+        "text": "Outlet 6"
+    },
+    {
+        "name": "relay_name_06",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_06",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_06",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_06",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_06",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_06",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_06",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_06",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_06",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_06",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_06",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_06",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_07",
+        "type": "header",
+        "text": "Outlet 7"
+    },
+    {
+        "name": "relay_name_07",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_07",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_07",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_07",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_07",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_07",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_07",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_07",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_07",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_07",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_07",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_07",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_08",
+        "type": "header",
+        "text": "Outlet 8"
+    },
+    {
+        "name": "relay_name_08",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_08",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_08",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_08",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_08",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_08",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_08",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_08",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_08",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_08",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_08",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_08",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_09",
+        "type": "header",
+        "text": "Outlet 9"
+    },
+    {
+        "name": "relay_name_09",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_09",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_09",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_09",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_09",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_09",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_09",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_09",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_09",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_09",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_09",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_09",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_10",
+        "type": "header",
+        "text": "Outlet 10"
+    },
+    {
+        "name": "relay_name_10",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_10",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_10",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_10",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_10",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_10",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_10",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_10",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_10",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_10",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_10",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_10",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_11",
+        "type": "header",
+        "text": "Outlet 11"
+    },
+    {
+        "name": "relay_name_11",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_11",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_11",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_11",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_11",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_11",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_11",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_11",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_11",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_11",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_11",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_11",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_12",
+        "type": "header",
+        "text": "Outlet 12"
+    },
+    {
+        "name": "relay_name_12",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_12",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_12",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_12",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_12",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_12",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_12",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_12",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_12",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_12",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_12",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_12",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_13",
+        "type": "header",
+        "text": "Outlet 13"
+    },
+    {
+        "name": "relay_name_13",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_13",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_13",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_13",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_13",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_13",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_13",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_13",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_13",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_13",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_13",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_13",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_14",
+        "type": "header",
+        "text": "Outlet 14"
+    },
+    {
+        "name": "relay_name_14",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_14",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_14",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_14",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_14",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_14",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_14",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_14",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_14",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_14",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_14",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_14",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_15",
+        "type": "header",
+        "text": "Outlet 15"
+    },
+    {
+        "name": "relay_name_15",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_15",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_15",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_15",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_15",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_15",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_15",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_15",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_15",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_15",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_15",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_15",
+        "type": "separator"
+    },
+      
+    {
+        "name": "relay_header_16",
+        "type": "header",
+        "text": "Outlet 16"
+    },
+    {
+        "name": "relay_name_16",
+        "label": "Name",
+        "type": "char",
+        "length": 64,
+        "direction": "control"
+    },
+    {
+        "name": "relayState_16",
+        "label": "State",
+        "type": "bool",
+        "direction": "display_OnOff"
+    },
+    {
+        "name": "relay_16",
+        "label": "Should Power?",
+        "type": "bool",
+        "direction": "control"
+    },
+    {
+        "name": "relayMode_16",
+        "label": "Activation Mode",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["None", "Daily", "Time Interval", "Weekly"],
+        "optionLabels": ["None", "Daily", "Time Interval", "Weekly"]
+
+    },
+    {
+        "name": "timer_start_daily_16",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_daily_16",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_interval_intrv_16",
+        "label": "How many minutes after the last activation should it turn on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_length_intrv_16",
+        "label": "How many minutes should it stay on once activated?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "timer_day_weekl_16",
+        "label": "What day of the week should it turn on?",
+        "type": "char",
+        "length": 32,
+        "direction": "control",
+        "control": "select",
+        "options": ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"],
+        "hidden" : false
+    },
+    {
+        "name": "timer_start_weekl_16",
+        "label": "When should it turn on?",
+        "type": "time",
+        "direction": "control",
+        "hidden" : false
+    },
+    {
+        "name": "timer_length_weekl_16",
+        "label": "How many minutes should it stay on?",
+        "type": "float",
+        "digits": 3,
+        "min": 0,
+        "max": 1440,
+        "step": 0.001,
+        "direction": "control"
+    },
+    {
+        "name": "relay_seperator_16",
+        "type": "separator"
+    },
+
+
+
+    
+    
+    {
         "name": "projectName",
         "type": "char",
         "length": 64,
+        "hidden": true,
         "direction": "display"
     },
     {
-        "type": "separator"
+        "type": "separator",
+        
+        "hidden": true
     },
     {
         "type": "header",
+        "hidden": true,
         "text": "The Best Project Ever!!! :))"
     },
     {
         "type": "label",
+        "hidden": true,
         "text": "peepee poopoo head"
     },
     {
-        "type": "separator"
+        "type": "separator",
+        "hidden": true
     },
     {
         "name": "gabe_is_poopy_head",
         "type": "char",
         "length": 32,
+        "hidden": true,
         "direction": "control"
     },
     {
         "name": "duncan_is_poopy_head",
         "type": "char",
         "length": 32,
+        "hidden": true,
         "direction": "control"
     },
     {
-        "name": "harrod_is_poopy_head",
+        "name": "harrod_is_NOT_poopy_head",
         "type": "char",
         "length": 32,
+        "hidden": true,
         "direction": "control"
     },
     {
         "name": "shahmir_is_keeewlest",
         "type": "char",
         "length": 32,
+        "hidden": true,
         "direction": "control"
     },
     {
         "name": "stringInput",
         "type": "char",
         "length": 32,
+        "hidden": true,
         "direction": "control"
     },
     {
         "name": "dummyInt",
         "type": "uint16_t",
+        "hidden": true,
         "direction": "display"
     },
     {
         "name": "dummyBool",
         "type": "bool",
+        "hidden": true,
         "direction": "display"
     },
     
     {
         "name": "inputInt",
         "type": "uint16_t",
+        "hidden": true,
         "direction": "control"
     },
     {
         "name": "inputBool",
         "type": "bool",
+        "hidden": true,
         "direction": "control"
     },
     {
@@ -109,6 +1806,7 @@
         "type": "float",
         "min": 1,
         "max": 10,
+        "hidden": true,
         "direction": "control"
     }
 ]
